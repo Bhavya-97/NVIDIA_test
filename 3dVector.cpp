@@ -4,123 +4,130 @@
 
 using namespace std;
 
-template<typename T>
-class 3dVector  {
+class vector3d  {
   private:
-    T x, y, z;
+    float x, y, z;
 
   public:
-    3dVector() {                                        //Constructor to instantiate and Initialise all vector components to 0
+    vector3d() {                                              //Constructor to instantiate and Initialise all vector components to 0
       x = y = z = 0;
     }
 
-    3dVector(T x, T y, T z) {                           //Parameterised Constructor
-      this.x = x;
-      this.y = y;
-      this.z = z;
+    vector3d(float x1, float y1, float z1) {                  //Parameterised Constructor
+      x = x1;
+      y = y1;
+      z = z1;
     }
 
-    3dVector(3dVector vector) {                         //copy Constructor
-      this.x = vector.x;
-      this.y = vector.y;
-      this.z = vector.z;
+    vector3d(vector3d &vector) {                              //copy Constructor
+      x = vector.x;
+      y = vector.y;
+      z = vector.z;
     }
 
-    3dVector operator+(const 3dVector &operand);        //returns the sum 2 vectors
-    3dVector &operator+=(const 3dVector &operand);      //Adds 2 vectors and stores the sum
+    vector3d operator+(const vector3d &operand);            //returns the sum 2 vectors
+    vector3d &operator+=(const vector3d &operand);          //Adds 2 vectors and stores the sum
 
-    3dVector operator-(const 3dVector &operand);        //Returns the differnce of 2 vectors
-    3dVector &operator-=(const 3dVector &operand);      //Subttracts 2 vectors and stores the difference
+    vector3d operator-(const vector3d &operand);            //Returns the differnce of 2 vectors
+    vector3d &operator-=(const vector3d &operand);          //Subttracts 2 vectors and stores the difference
 
-    3dVector operator*(const T value);                  //Returns the product
-    3dVector &operator*=(const T value);                //Multiplies and stores the product
+    vector3d operator*(const float value);                  //Returns the product
+    vector3d &operator*=(const float value);                //Multiplies and stores the product
 
-    3dVector operator/(const T value);                  //returns the quotient
-    3dVector &operator/=(const T value);                //Divides and stores the quotient
+    vector3d operator/(const float value);                  //returns the quotient
+    vector3d &operator/=(const float value);                //Divides and stores the quotient
 
-    T dot_product(const 3dVector &vector);              //returns the dot product
-    3dVector scalar_multiplication(const T scalar);     //returns the product of vector and scalar
+    float dot_product(const vector3d &vector);              //returns the dot product
+    vector3d scalar_multiplication(const float scalar);     //returns the product of vector and scalar
 
-    3dVector cross_product(const 3dVector &vector);     //returns the cross product of 2 vectors
+    vector3d cross_product(const vector3d &vector);         //returns the cross product of 2 vectors
 
-    float magnitude();                                  //returns the magnitude of the vector
-    3dVector normalisation();                           //returns the normalised vector
+    float magnitude();                                      //returns the magnitude of the vector
+    vector3d normalisation();                               //returns the normalised vector
 
-    T square();                                         //returns the square of the vector
-    float distance(const 3dVector &vector);             //returns the distance between 2 vectors
+    float square();                                         //returns the square of the vector
+    float distance(const vector3d &vector);                 //returns the distance between 2 vectors
 
-    void display();                                     //prints the value of the vector
+    void display();                                         //prints the value of the vector
+};
+
+vector3d vector3d ::operator+(const vector3d &operand) {
+  vector3d result;
+
+  result.x = x + operand.x;
+  result.y = y + operand.y;
+  result.z = z + operand.z;
+
+  return result;
 }
 
-3dvector 3dVector :: operator+(const 3dVector &operand) {
-  this.x += operand.x;
-  this.y += operand.y;
-  this.z += operand.z;
+vector3d vector3d :: operator-(const vector3d &operand) {
+  vector3d result;
+
+  result.x = x - operand.x;
+  result.y = y - operand.y;
+  result.z = z - operand.z;
+
+  return result;
+}
+
+vector3d vector3d :: operator*(const float value) {
+  vector3d result;
+
+  result.x = x * value;
+  result.y = y * value;
+  result.z = z * value;
+
+  return result;
+}
+
+vector3d vector3d :: operator/(const float value) {
+  vector3d result;
+
+  result.x = x / value;
+  result.y = y / value;
+  result.z = z / value;
+
+  return result;
+}
+
+vector3d &vector3d :: operator+=(const vector3d &operand) {
+  x += operand.x;
+  y += operand.y;
+  z += operand.z;
 
   return *this;
 }
 
-3dvector 3dVector :: operator-(const 3dVector &operand) {
-  this.x -= operand.x;
-  this.y -= operand.y;
-  this.z -= operand.z;
+vector3d &vector3d :: operator-=(const vector3d &operand) {
+  x -= operand.x;
+  y -= operand.y;
+  z -= operand.z;
 
   return *this;
 }
 
-3dvector 3dVector :: operator*(const T value) {
-  this.x *= value;
-  this.y *= value;
-  this.z *= value;
+vector3d &vector3d :: operator*=(const float value) {
+  x *= value;
+  y *= value;
+  z *= value;
 
   return *this;
 }
 
-3dvector 3dVector :: operator/(const T value) {
-  this.x /= value;
-  this.y /= value;
-  this.z /= value;
+vector3d &vector3d :: operator/=(const float value) {
+  x /= value;
+  y /= value;
+  z /= value;
 
   return *this;
 }
 
-3dvector 3dVector :: &operator+=(const 3dVector &operand) {
-  this.x += operand.x;
-  this.y += operand.y;
-  this.z += operand.z;
-
-  return *this;
+float vector3d :: dot_product(const vector3d &vector) {
+  return x*vector.x + y*vector.y + z*vector.z;
 }
 
-3dvector 3dVector :: &operator-=(const 3dVector &operand) {
-  this.x -= operand.x;
-  this.y -= operand.y;
-  this.z -= operand.z;
-
-  return *this;
-}
-
-3dvector 3dVector :: &operator*=(const T value) {
-  this.x *= value;
-  this.y *= value;
-  this.z *= value;
-
-  return *this;
-}
-
-3dvector 3dVector :: &operator/=(const T value) {
-  this.x /= value;
-  this.y /= value;
-  this.z /= value;
-
-  return *this;
-}
-
-T 3dVector :: dot_product(const 3dVector &vector) {
-  returns x*vector.x + y*vector.y + z*vector.z;
-}
-
-3dVector 3dVector :: scalar_multiplication(const T scalar) {
+vector3d vector3d :: scalar_multiplication(const float scalar) {
   x *= scalar;
   y *= scalar;
   z *= scalar;
@@ -128,34 +135,36 @@ T 3dVector :: dot_product(const 3dVector &vector) {
   return *this;
 }
 
-3dVector 3dVector :: cross_product(const 3dVector &vector) {
-  T ni = y*vector.z-z*vector.y;
-  T nj = z*vector.x-x*vector.z;
-  T nk = x*vector.y-y*vector.x;
+vector3d vector3d :: cross_product(const vector3d &vector) {
+  vector3d result;
 
-  return 3dVector(ni,nj,nk);
+  result.x = y*vector.z - z*vector.y;
+  result.y = z*vector.x - x*vector.z;
+  result.z = x*vector.y - y*vector.x;
+
+  return result;
 }
 
-float 3dVector :: magnitude() {
+float vector3d :: magnitude() {
   return sqrt(square());
 }
 
-T 3dVector :: square() {
+float vector3d :: square() {
   return x*x +y*y + z*z;
 }
 
-3dVector 3dVector:: normalization()
+vector3d vector3d:: normalisation()
 {
     assert(magnitude() != 0);
     *this /= magnitude();
     return *this;
 }
 
-float 3dVector :: distance(const 3dVector &vector) {
-  3dVector dist = *this - vector;
+float vector3d :: distance(const vector3d &vector) {
+  vector3d dist(*this - vector);
   return magnitude();
 }
 
-void 3dVector :: display() {
+void vector3d :: display() {
   cout << x << " " << y << " " << z << endl;
 }
